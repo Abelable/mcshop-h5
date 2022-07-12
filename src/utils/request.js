@@ -9,20 +9,11 @@ const service = axios.create({
 
 // request interceptor
 service.interceptors.request.use(
-    config => {
-    if (!config.headers['X-Litemall-Token']) {
-      config.headers['X-Litemall-Token'] = `${window.localStorage.getItem(
-        'Authorization'
-      ) || ''}`;
-    }
-    if (config.version === 'v2') {
-        config.baseURL = process.env.VUE_APP_BASE_API_V2
-        if (!config.headers['Authorization']) {
-            config.headers['Authorization'] = `Bearer ${window.localStorage.getItem(
-                'Authorization'
-            ) || ''}`;
-        }
-        delete config.headers['X-Litemall-Token']
+  config => {
+    if (!config.headers['Authorization']) {
+        config.headers['Authorization'] = `Bearer ${window.localStorage.getItem(
+            'Authorization'
+        ) || ''}`;
     }
     return config;
   },

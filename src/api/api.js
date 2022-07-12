@@ -33,7 +33,6 @@ export function authLoginByAccount(data) {
   return request({
     url: AuthLoginByAccount,
     method: 'post',
-    version: 'v2',
     data
   })
 }
@@ -58,7 +57,6 @@ export function authProfile(data) {
   return request({
     url: AuthProfile,
     method: 'post',
-    version: 'v2',
     data
   })
 }
@@ -67,7 +65,6 @@ export function authRegister(data) {
   return request({
     url: AuthRegister,
     method: 'post',
-    version: 'v2',
     data
   });
 }
@@ -76,7 +73,6 @@ export function authReset(data) {
   return request({
     url: AuthReset,
     method: 'post',
-    version: 'v2',
     data
   })
 }
@@ -85,7 +81,6 @@ export function authRegisterCaptcha(data) {
   return request({
     url: AuthRegisterCaptcha,
     method: 'post',
-    version: 'v2',
     data
   })
 }
@@ -94,7 +89,6 @@ export function authCaptcha(data) {
   return request({
     url: AuthCaptcha,
     method: 'post',
-    version: 'v2',
     data
   })
 }
@@ -268,7 +262,6 @@ export function addressList(query) {
   return request({
     url: AddressList,
     method: 'get',
-    version: 'v2',
     params: query
   })
 }
@@ -278,7 +271,6 @@ export function addressDetail(query) {
   return request({
     url: AddressDetail,
     method: 'get',
-    version: 'v2',
     params: query
   })
 }
@@ -287,7 +279,6 @@ export function addressSave(data) {
   return request({
     url: AddressSave,
     method: 'post',
-    version: 'v2',
     data
   })
 }
@@ -296,7 +287,6 @@ export function addressDelete(data) {
   return request({
     url: AddressDelete,
     method: 'post',
-    version: 'v2',
     data
   })
 }
