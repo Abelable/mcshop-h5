@@ -1,80 +1,80 @@
 <template>
-<div class="order">
-  <van-cell-group>
-      <van-cell v-if="checkedAddress" isLink @click="goAddressList()" title="收货地址">
-      <div slot="label">
-        <div>
-         <span>{{ checkedAddress.name }} </span>
-         <span>{{ checkedAddress.tel }} </span>
-      </div>
-      <div>
-        {{ checkedAddress.addressDetail }}
-      </div>
-      </div>
-    </van-cell>
-  </van-cell-group>
-
-  <van-cell-group>
-    <van-cell class="order-coupon" title="优惠券" is-link :value="getCouponValue()" @click="getCoupons" />
-  </van-cell-group>
-
-<!-- 优惠券列表 -->
-<van-popup v-model="showList" position="bottom">
-  <van-coupon-list
-    :coupons="coupons"
-    :chosen-coupon="chosenCoupon"
-    :disabled-coupons="disabledCoupons"
-    @change="onChange"
-    @exchange="onExchange"
-  />
-</van-popup>
-
-    <van-card
-      v-for="item in checkedGoodsList"
-      :key="item.id"
-      :title="item.goodsName"
-      :num="item.number"
-      :price="item.price +'.00'"
-      :thumb="item.picUrl"
-    >
-      <div slot="desc">
-        <div class="van-card__desc">
-          <van-tag plain style="margin-right:6px;" v-for="(spec, index) in item.specifications" :key="index">
-            {{spec}}
-          </van-tag>
-        </div>
-      </div>
-    </van-card>
-
+  <div class="order">
     <van-cell-group>
-      <van-cell title="商品金额">
-        <span class="red">{{goodsTotalPrice * 100 | yuan}}</span>
+      <van-cell v-if="checkedAddress" isLink @click="goAddressList()" title="收货地址">
+        <div slot="label">
+          <div>
+          <span>{{ checkedAddress.name }} </span>
+          <span>{{ checkedAddress.tel }} </span>
+        </div>
+        <div>
+          {{ checkedAddress.addressDetail }}
+        </div>
+        </div>
       </van-cell>
-      <van-cell title="邮费">
-        <span class="red">{{ freightPrice * 100| yuan}}</span>
-      </van-cell>
-      <van-cell title="优惠券">
-        <span class="red">-{{ couponPrice * 100| yuan}}</span>
-      </van-cell>
-      <van-field v-model="message" placeholder="请输入备注" label="订单备注">
-      <template slot="icon">{{message.length}}/50</template>
-      </van-field>      
     </van-cell-group>
 
-    <van-submit-bar
-      :price="actualPrice*100"
-      label="总计："
-      buttonText="提交订单"
-      :disabled="isDisabled"
-      @submit="onSubmit"
+    <van-cell-group>
+      <van-cell class="order-coupon" title="优惠券" is-link :value="getCouponValue()" @click="getCoupons" />
+    </van-cell-group>
+
+  <!-- 优惠券列表 -->
+  <van-popup v-model="showList" position="bottom">
+    <van-coupon-list
+      :coupons="coupons"
+      :chosen-coupon="chosenCoupon"
+      :disabled-coupons="disabledCoupons"
+      @change="onChange"
+      @exchange="onExchange"
     />
-</div>
+  </van-popup>
+
+      <van-card
+        v-for="item in checkedGoodsList"
+        :key="item.id"
+        :title="item.goodsName"
+        :num="item.number"
+        :price="item.price +'.00'"
+        :thumb="item.picUrl"
+      >
+        <div slot="desc">
+          <div class="van-card__desc">
+            <van-tag plain style="margin-right:6px;" v-for="(spec, index) in item.specifications" :key="index">
+              {{spec}}
+            </van-tag>
+          </div>
+        </div>
+      </van-card>
+
+      <van-cell-group>
+        <van-cell title="商品金额">
+          <span class="red">{{goodsTotalPrice * 100 | yuan}}</span>
+        </van-cell>
+        <van-cell title="邮费">
+          <span class="red">{{ freightPrice * 100| yuan}}</span>
+        </van-cell>
+        <van-cell title="优惠券">
+          <span class="red">-{{ couponPrice * 100| yuan}}</span>
+        </van-cell>
+        <van-field v-model="message" placeholder="请输入备注" label="订单备注">
+        <template slot="icon">{{message.length}}/50</template>
+        </van-field>      
+      </van-cell-group>
+
+      <van-submit-bar
+        :price="actualPrice*100"
+        label="总计："
+        buttonText="提交订单"
+        :disabled="isDisabled"
+        @submit="onSubmit"
+      />
+  </div>
 </template>
 
 <script>
 import { Card, Tag, Field, SubmitBar, Toast  } from 'vant';
 import { CouponCell, CouponList, Popup } from 'vant';
-import { cartCheckout, orderSubmit, couponSelectList} from '@/api/api';
+import { cartCheckout, orderSubmit, couponSelectList } from '@/api/api';
 import { getLocalStorage, setLocalStorage } from '@/utils/local-storage';
 
 export default {
